@@ -8,11 +8,11 @@ import { fetchIds, fetchItems } from './redux/store/productSlice';
 function App() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { ids, curentPage } = useAppSelector((state) => state.product);
+  const { ids, curentPage, errors } = useAppSelector((state) => state.product);
 
   useEffect(() => {
     dispatch(fetchIds(curentPage)).then(() => {
-      console.log('ids', ids);
+      console.log('retries');
     });
     navigate(`/${curentPage}`);
 
@@ -20,7 +20,9 @@ function App() {
   }, [curentPage]);
 
   useEffect(() => {
-    dispatch(fetchItems(ids));
+    if (ids.length > 0) {
+      dispatch(fetchItems(ids));
+    }
   }, [dispatch, ids]);
 
   return (
