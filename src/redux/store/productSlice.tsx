@@ -20,25 +20,50 @@ interface IOptions {
   body: string;
 }
 
-async function asyncThrowableFetch(
+async function fetchPlusWithTimeout(
   url: string,
   options: IOptions,
+  retries: number,
   thunkApi: GetThunkAPI<AsyncThunkConfig>
 ) {
   const { rejectWithValue, fulfillWithValue } = thunkApi;
 
   try {
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      return rejectWithValue(response);
-    }
-    const resp = await response.json();
-    console.log('resp', resp);
+    const response = await fetchWithTimeout(url, options, HTTP_TIMEOUT);
+    if (response.ok) {
+      const resp = await response.json();
+      console.log('resp', resp);
 
-    return fulfillWithValue(resp);
+      return fulfillWithValue(resp);
+    }
+
+    if (retries > 0) {
+      // Retry the request with one fewer retry count
+      return fetchPlusWithTimeout(url, options, retries - 1, thunkApi);
+    }
+
+    return rejectWithValue(response.status);
   } catch (error: unknown) {
     return rejectWithValue(error);
   }
+}
+
+const HTTP_TIMEOUT = 3000;
+const MAX_RETRIES = 5;
+
+async function fetchWithTimeout(
+  url: string,
+  options: IOptions,
+  timeout: number
+) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  const response = await fetch(url, {
+    ...options,
+    signal: controller.signal,
+  });
+  clearTimeout(timeoutId);
+  return response;
 }
 
 export const fetchIds = createAsyncThunk(
@@ -56,41 +81,13 @@ export const fetchIds = createAsyncThunk(
       }),
     };
 
-    return asyncThrowableFetch(url, options, thunkApi);
-    // const { rejectWithValue, fulfillWithValue } = thunkApi;
-
-    // try {
-    //   const response = await fetch(url, {
-    //     method: 'POST',
-    //     headers: {
-    //       'content-type': 'application/json',
-    //       'x-auth': hash,
-    //     },
-    //     body: JSON.stringify({
-    //       action: 'get_ids',
-    //       params: { offset: curentPage, limit: limit },
-    //     }),
-    //   });
-
-    //   if (!response.ok) {
-    //     return rejectWithValue(response);
-    //   }
-    //   const resp = await response.json();
-    //   console.log('resp', resp);
-
-    //   return fulfillWithValue(resp);
-    // } catch (error: unknown) {
-    //   return rejectWithValue(error);
-    // }
+    return fetchPlusWithTimeout(url, options, MAX_RETRIES, thunkApi);
   }
 );
-
 
 export const fetchItems = createAsyncThunk(
   'product/fetchItems',
   async function fetchAPIData(curentIds: string[], thunkApi) {
-    let apiTimeout = setTimeout(fetchAPIData, 1000);
-
     const { rejectWithValue, fulfillWithValue } = thunkApi;
     let retries = 0;
     let success = false;
@@ -111,7 +108,6 @@ export const fetchItems = createAsyncThunk(
         });
 
         if (!response.ok) {
-          apiTimeout = setTimeout(fetchAPIData, 1000);
           retries++;
           return rejectWithValue(response.status);
         }
@@ -121,7 +117,6 @@ export const fetchItems = createAsyncThunk(
 
         return fulfillWithValue(resp);
       } catch (error: unknown) {
-        apiTimeout = setTimeout(fetchAPIData, 1000);
         retries++;
         return rejectWithValue(error);
       }
