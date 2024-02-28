@@ -102,9 +102,11 @@ export const productSlice = createSlice({
         state.status = 'rejected';
         state.errors = action.payload as IError | null;
         console.log(
-          'Error: ',
+          '',
+          'Error:',
           state.errors?.errMessage,
-          ' Идентификатор ошибки: ',
+          '\n',
+          'Идентификатор ошибки:',
           state.errors && state.errors.errCode.length > 0
             ? state.errors.errCode
             : 'нет'
@@ -130,9 +132,11 @@ export const productSlice = createSlice({
         state.status = 'rejected';
         state.errors = action.payload as IError | null;
         console.log(
-          'Error: ',
+          '',
+          'Error:',
           state.errors?.errMessage,
-          ' Идентификатор ошибки: ',
+          '\n',
+          'Идентификатор ошибки:',
           state.errors && state.errors.errCode.length > 0
             ? state.errors.errCode
             : 'нет'

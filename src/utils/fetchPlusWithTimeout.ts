@@ -8,7 +8,7 @@ import { fetchWithTimeout } from './fetchWithTimeout';
 export async function fetchPlusWithTimeout(
   url: string,
   options: IOptions,
-  maxRetries: number,
+  retries: number,
   timeout: number,
   thunkApi: GetThunkAPI<AsyncThunkConfig>
 ) {
@@ -18,12 +18,10 @@ export async function fetchPlusWithTimeout(
     const response = await fetchWithTimeout(url, options, timeout);
     if (response.ok) {
       const resp = await response.json();
-      console.log('resp.result', resp.result);
       return fulfillWithValue(resp.result);
     }
 
-    const retries = 1;
-    if (retries < maxRetries) {
+    if (retries > 0) {
       console.log(
         'Идентификатор ошибки:',
         response.status,
@@ -31,8 +29,7 @@ export async function fetchPlusWithTimeout(
         '\n',
         'Выполняется повторная попытка запроса.'
       );
-
-      return fetchPlusWithTimeout(url, options, retries + 1, timeout, thunkApi);
+      return fetchPlusWithTimeout(url, options, retries - 1, timeout, thunkApi);
     } else {
       console.log('Превышено максимальное количество повторных попыток.');
       return rejectWithValue({
