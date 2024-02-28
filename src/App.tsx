@@ -8,12 +8,10 @@ import { fetchIds, fetchItems } from './redux/store/productSlice';
 function App() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { ids, curentPage, errors } = useAppSelector((state) => state.product);
+  const { ids, curentPage } = useAppSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(fetchIds(curentPage)).then(() => {
-      console.log('retries');
-    });
+    dispatch(fetchIds(curentPage));
     navigate(`/${curentPage}`);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

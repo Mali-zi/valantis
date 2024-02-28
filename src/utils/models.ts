@@ -4,7 +4,10 @@ export interface IProduct {
   total: null | number;
   total_pages: null | number;
   status: string;
-  errors: unknown;
+  errors: {
+    errCode: string;
+    errMessage: string;
+  } | null;
   curentPage: number;
 }
 
@@ -13,4 +16,13 @@ export interface IItem {
   brand: null | string;
   price: number;
   product: string;
+}
+
+export interface IOptions {
+  method: string;
+  headers: {
+    'content-type': string;
+    'x-auth': string;
+  };
+  body: string;
 }
