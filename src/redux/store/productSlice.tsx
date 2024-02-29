@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { md5 } from 'js-md5';
-import {
-  HTTP_TIMEOUT,
-  MAX_RETRIES,
-  limit,
-  password,
-  url,
-} from '../../utils/const';
-import { IItem, IProduct } from '../../utils/models';
+import { HTTP_TIMEOUT, MAX_RETRIES, url } from '../../utils/const';
+import { IItem, IOptions, IProduct } from '../../utils/models';
 import unique from '../../utils/unique';
 import { fetchPlusWithTimeout } from '../../utils/fetchPlusWithTimeout';
 
@@ -16,24 +9,9 @@ interface IError {
   errMessage: string;
 }
 
-const timeStamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
-const hash = md5(`${password}_${timeStamp}`);
-
 export const fetchIds = createAsyncThunk(
   'product/fetchIds',
-  async (curentPage: number, thunkApi) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-auth': hash,
-      },
-      body: JSON.stringify({
-        action: 'get_ids',
-        params: { offset: curentPage, limit: limit },
-      }),
-    };
-
+  async (options: IOptions, thunkApi) => {
     return fetchPlusWithTimeout(
       url,
       options,
@@ -46,19 +24,7 @@ export const fetchIds = createAsyncThunk(
 
 export const fetchItems = createAsyncThunk(
   'product/fetchItems',
-  async (curentIds: string[], thunkApi) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-auth': hash,
-      },
-      body: JSON.stringify({
-        action: 'get_items',
-        params: { ids: curentIds },
-      }),
-    };
-
+  async (options: IOptions, thunkApi) => {
     return fetchPlusWithTimeout(
       url,
       options,

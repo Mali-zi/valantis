@@ -23,6 +23,7 @@ export async function fetchPlusWithTimeout(
 
     if (retries > 0) {
       console.log(
+        '',
         'Идентификатор ошибки:',
         response.status,
         response.statusText,

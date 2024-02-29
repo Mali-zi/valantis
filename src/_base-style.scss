@@ -1,5 +1,6 @@
-$violet: #512689;
-$hoverLink: #8b59cd;
+$violet: #5819aa;
+$darkViolet: #56446e;
+$hoverLink: #8c0ed0;
 $active: #d9c0fa;
 $black: #151317;
 $gray: #808185;
@@ -98,7 +99,7 @@ select:-webkit-autofill {
   font-weight: 400;
   font-family: inherit;
   cursor: pointer;
-  background-color: $violet;
+  background-color: $darkViolet;
   color: white;
   border-width: 1px;
   border-radius: 0.5rem;
@@ -117,7 +118,7 @@ select:-webkit-autofill {
 }
 
 .btn-active {
-  color: $violet;
+  background-color: $hoverLink;
 }
 
 .inp {

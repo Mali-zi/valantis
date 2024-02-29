@@ -1,0 +1,21 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.ellipsis-item, .page-next, .page-prev {
+  height: 38px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: white;
+  color: $violet;
+  border-radius: 0.5rem;
+}
+
+.page-next, .page-prev {
+  font-size: 1.6rem;
+}

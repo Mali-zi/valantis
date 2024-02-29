@@ -76,7 +76,7 @@ const Products = () => {
           <Loader />
         ) : (
           <main className="team">
-            {/* <PageNumbersSection /> */}
+            <PageNumbersSection />
             <ul className="userList">{productList}</ul>
           </main>
         )}
