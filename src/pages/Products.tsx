@@ -77,7 +77,7 @@ const Products = () => {
         ) : (
           <main className="team">
             <PageNumbersSection />
-            <ul className="userList">{productList}</ul>
+            <ul className="cardList">{productList}</ul>
           </main>
         )}
       </div>

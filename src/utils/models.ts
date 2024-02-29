@@ -1,7 +1,7 @@
 export interface IProduct {
   ids: string[];
   items: IItem[] | null;
-  total: number;
+  total_ids: number;
   total_pages: number;
   status: string;
   errors: {
@@ -9,6 +9,7 @@ export interface IProduct {
     errMessage: string;
   } | null;
   curentPage: number;
+  curentIds: string[];
 }
 
 export interface IItem {

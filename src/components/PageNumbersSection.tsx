@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../redux/app/hooks';
 import { setCurentPage } from '../redux/store/productSlice';
 
@@ -213,7 +213,7 @@ export default function PageNumbersSection() {
           navigate(`/${curentPage + 1}`);
         }}
       >
-        <Link to={`/${curentPage + 1}`}>&raquo;</Link>
+        &raquo;
       </li>
     );
   }

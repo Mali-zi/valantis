@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { HTTP_TIMEOUT, MAX_RETRIES, limit, url } from '../../utils/const';
 import { IItem, IOptions, IProduct } from '../../utils/models';
-import unique from '../../utils/unique';
 import { fetchPlusWithTimeout } from '../../utils/fetchPlusWithTimeout';
+import uniqueId from '../../utils/uniqueId';
+import uniqueItem from '../../utils/uniqueItem';
 
 interface IError {
   errCode: string;
@@ -38,11 +39,12 @@ export const fetchItems = createAsyncThunk(
 const initialState: IProduct = {
   ids: [],
   items: [],
-  total: 0,
+  total_ids: 0,
   total_pages: 0,
   status: 'idle',
   errors: null,
   curentPage: 1,
+  curentIds: [],
 };
 
 export const productSlice = createSlice({
@@ -51,6 +53,10 @@ export const productSlice = createSlice({
   reducers: {
     setCurentPage: (state, action) => {
       state.curentPage = action.payload;
+      state.curentIds = state.ids.slice(
+        (action.payload - 1) * limit,
+        action.payload * limit
+      );
     },
   },
 
@@ -58,13 +64,14 @@ export const productSlice = createSlice({
     builder
       .addCase(fetchIds.fulfilled, (state, action) => {
         state.status = 'fulfilled';
-        state.ids = action.payload as string[];
+        const uniqueIds = uniqueId(action.payload as string[]);
+        state.ids = uniqueIds;
         state.errors = null;
-        state.total = action.payload.length;
+        state.total_ids = uniqueIds.length;
         state.total_pages =
-          action.payload.length > 0
-            ? Math.ceil(action.payload.length / limit)
-            : 0;
+          uniqueIds.length > 0 ? Math.ceil(uniqueIds.length / limit) : 0;
+        state.curentIds = uniqueIds.slice(0, limit);
+        state.curentPage = 1;
       })
       .addCase(fetchIds.pending, (state) => {
         state.status = 'pending';
@@ -87,7 +94,7 @@ export const productSlice = createSlice({
       .addCase(fetchItems.fulfilled, (state, action) => {
         state.status = 'fulfilled';
         if (action.payload) {
-          state.items = unique(action.payload as IItem[]);
+          state.items = uniqueItem(action.payload as IItem[]);
           state.errors = null;
         } else {
           state.errors = {

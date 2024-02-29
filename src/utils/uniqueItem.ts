@@ -1,6 +1,6 @@
 import { IItem } from './models';
 
-const unique = (arr: IItem[]) => {
+const uniqueItem = (arr: IItem[]) => {
   const uniqueIds = new Set();
 
   const uniqueProducts = arr.filter((a) => {
@@ -18,4 +18,4 @@ const unique = (arr: IItem[]) => {
   return uniqueProducts;
 };
 
-export default unique;
+export default uniqueItem;
