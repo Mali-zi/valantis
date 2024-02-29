@@ -1,8 +1,8 @@
 export interface IProduct {
   ids: string[];
   items: IItem[] | null;
-  total: null | number;
-  total_pages: null | number;
+  total: number;
+  total_pages: number;
   status: string;
   errors: {
     errCode: string;

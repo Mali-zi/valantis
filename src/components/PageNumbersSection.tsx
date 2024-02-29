@@ -1,18 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../redux/app/hooks';
-import { limit } from '../utils/const';
 import { setCurentPage } from '../redux/store/productSlice';
 
 export default function PageNumbersSection() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { ids, curentPage } = useAppSelector((state) => state.product);
-
-  const total = ids.length;
-  const pageAmount = ids.length > 0 ? Math.ceil(total / limit) : 0;
+  const { curentPage, total_pages } = useAppSelector((state) => state.product);
 
   const items: JSX.Element[] = [];
 
-  if (pageAmount === 1) {
+  if (total_pages === 1) {
     items.push(
       <li key="1" data-page={1} className="btn-active">
         1
@@ -20,7 +17,7 @@ export default function PageNumbersSection() {
     );
   }
 
-  if (pageAmount > 1) {
+  if (total_pages > 1) {
     if (curentPage > 1) {
       items.push(
         <li
@@ -28,9 +25,10 @@ export default function PageNumbersSection() {
           className="page-prev"
           onClick={() => {
             dispatch(setCurentPage(curentPage - 1));
+            navigate(`/${curentPage - 1}`);
           }}
         >
-          <Link to={`/${curentPage - 1}`}>&laquo;</Link>
+          &laquo;
         </li>
       );
     }
@@ -41,15 +39,16 @@ export default function PageNumbersSection() {
         className={1 === curentPage ? 'btn btn-active' : 'btn'}
         onClick={() => {
           dispatch(setCurentPage(1));
+          navigate('/1');
         }}
       >
-        <Link to="/1">1</Link>
+        1
       </li>
     );
   }
 
-  if (pageAmount > 1 && pageAmount <= 7) {
-    for (let page = 2; page <= pageAmount - 1; page++) {
+  if (total_pages > 1 && total_pages <= 7) {
+    for (let page = 2; page <= total_pages - 1; page++) {
       items.push(
         <li
           key={page}
@@ -57,15 +56,16 @@ export default function PageNumbersSection() {
           className={page === curentPage ? 'btn btn-active' : 'btn'}
           onClick={() => {
             dispatch(setCurentPage(page));
+            navigate(`/${page}`);
           }}
         >
-          <Link to={`/${page}`}>{page}</Link>
+          {page}
         </li>
       );
     }
   }
 
-  if (pageAmount >= 8) {
+  if (total_pages >= 8) {
     if (curentPage <= 2) {
       for (let page = 2; page <= 3; page++) {
         items.push(
@@ -75,9 +75,10 @@ export default function PageNumbersSection() {
             className={page === curentPage ? 'btn btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
+              navigate(`/${page}`);
             }}
           >
-            <Link to={`/${page}`}>{page}</Link>
+            {page}
           </li>
         );
       }
@@ -97,9 +98,10 @@ export default function PageNumbersSection() {
             className={page === curentPage ? 'btn btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
+              navigate(`/${page}`);
             }}
           >
-            <Link to={`/${page}`}>{page}</Link>
+            {page}
           </li>
         );
       }
@@ -110,7 +112,7 @@ export default function PageNumbersSection() {
       );
     }
 
-    if (curentPage >= 5 && curentPage <= pageAmount - 4) {
+    if (curentPage >= 5 && curentPage <= total_pages - 4) {
       items.push(
         <li key="ind-3" className="ellipsis-item">
           ...
@@ -124,9 +126,10 @@ export default function PageNumbersSection() {
             className={page === curentPage ? 'btn btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
+              navigate(`/${page}`);
             }}
           >
-            <Link to={`/${page}`}>{page}</Link>
+            {page}
           </li>
         );
       }
@@ -137,13 +140,13 @@ export default function PageNumbersSection() {
       );
     }
 
-    if (curentPage <= pageAmount - 2 && curentPage >= pageAmount - 3) {
+    if (curentPage <= total_pages - 2 && curentPage >= total_pages - 3) {
       items.push(
         <li key="ind-5" className="ellipsis-item">
           ...
         </li>
       );
-      for (let page = curentPage - 1; page <= pageAmount - 1; page++) {
+      for (let page = curentPage - 1; page <= total_pages - 1; page++) {
         items.push(
           <li
             key={page}
@@ -151,21 +154,22 @@ export default function PageNumbersSection() {
             className={page === curentPage ? 'btn btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
+              navigate(`/${page}`);
             }}
           >
-            <Link to={`/${page}`}>{page}</Link>
+            {page}
           </li>
         );
       }
     }
 
-    if (curentPage >= pageAmount - 1) {
+    if (curentPage >= total_pages - 1) {
       items.push(
         <li key="ind-6" className="ellipsis-item">
           ...
         </li>
       );
-      for (let page = pageAmount - 2; page <= pageAmount - 1; page++) {
+      for (let page = total_pages - 2; page <= total_pages - 1; page++) {
         items.push(
           <li
             key={page}
@@ -173,37 +177,40 @@ export default function PageNumbersSection() {
             className={page === curentPage ? 'btn btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
+              navigate(`/${page}`);
             }}
           >
-            <Link to={`/${page}`}>{page}</Link>
+            {page}
           </li>
         );
       }
     }
   }
 
-  if (pageAmount > 1) {
+  if (total_pages > 1) {
     items.push(
       <li
-        key={pageAmount}
-        data-page={pageAmount}
-        className={pageAmount === curentPage ? 'btn btn-active' : 'btn'}
+        key={total_pages}
+        data-page={total_pages}
+        className={total_pages === curentPage ? 'btn btn-active' : 'btn'}
         onClick={() => {
-          dispatch(setCurentPage(pageAmount));
+          dispatch(setCurentPage(total_pages));
+          navigate(`/${total_pages}`);
         }}
       >
-        <Link to={`/${pageAmount}`}>{pageAmount}</Link>
+        {total_pages}
       </li>
     );
   }
 
-  if (curentPage < pageAmount) {
+  if (curentPage < total_pages) {
     items.push(
       <li
         key="next"
         className="page-next"
         onClick={() => {
           dispatch(setCurentPage(curentPage + 1));
+          navigate(`/${curentPage + 1}`);
         }}
       >
         <Link to={`/${curentPage + 1}`}>&raquo;</Link>
@@ -211,7 +218,7 @@ export default function PageNumbersSection() {
     );
   }
 
-  if (pageAmount > 0) {
+  if (total_pages > 0) {
     return <ul className="pagination">{items}</ul>;
   } else <></>;
 }
