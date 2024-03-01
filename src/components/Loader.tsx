@@ -1,6 +1,6 @@
 export default function Loader() {
   return (
-    <div className="text-white text-2xl">
+    <div className="text-2xl">
       <svg
         aria-hidden="true"
         role="status"
@@ -18,7 +18,7 @@ export default function Loader() {
           fill="#1C64F2"
         />
       </svg>
-      Loading....
+      Загружаются результаты...
     </div>
   );
 }

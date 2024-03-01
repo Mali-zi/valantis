@@ -1,7 +1,10 @@
-import { useAppSelector } from '../redux/app/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import FavoriteSvg from '../assets/icons/favorite.svg';
 import PageNumbersSection from '../components/PageNumbersSection';
 import Loader from '../components/Loader';
+import { useEffect } from 'react';
+import { fetchItems } from '../redux/store/productSlice';
+import { hash } from '../utils/const';
 
 // interface IOver {
 //   over: boolean;
@@ -9,8 +12,28 @@ import Loader from '../components/Loader';
 // }
 
 const Products = () => {
-  // const dispatch = useAppDispatch();
-  const { items, status } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
+  const { items, status, curentIds } = useAppSelector((state) => state.product);
+
+  useEffect(() => {
+    console.log('curentIds', curentIds);
+    const options = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-auth': hash,
+      },
+      body: JSON.stringify({
+        action: 'get_items',
+        params: { ids: curentIds },
+      }),
+    };
+
+    if (curentIds.length > 0) {
+      dispatch(fetchItems(options));
+    }
+  }, [curentIds]);
+
   // const favouriteUsers = useAppSelector(
   //   (state) => state.favouriteUsers.favouriteUsers
   // );
@@ -69,20 +92,25 @@ const Products = () => {
     );
   });
 
-  return (
-    <div className="main">
-      <div className="app">
-        {status === 'pending' ? (
-          <Loader />
-        ) : (
-          <main className="team">
-            <PageNumbersSection />
-            <ul className="cardList">{productList}</ul>
-          </main>
-        )}
-      </div>
-    </div>
-  );
+  if (status === 'pending') {
+    return <Loader />;
+  } else {
+    if (items.length > 0) {
+      return (
+        <div className="product-container">
+          <PageNumbersSection />
+          <ul className="cardList">{productList}</ul>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          Извините, ничего не найдено. Проверьте правильность запроса или
+          введите другой.
+        </div>
+      );
+    }
+  }
 };
 
 export default Products;

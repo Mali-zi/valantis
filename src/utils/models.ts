@@ -1,6 +1,6 @@
 export interface IProduct {
   ids: string[];
-  items: IItem[] | null;
+  items: IItem[];
   total_ids: number;
   total_pages: number;
   status: string;
