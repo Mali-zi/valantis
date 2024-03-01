@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import productReducer from '../store/productSlice';
-import favouriteUserReducer from '../store/favouriteUserSlice';
+import favouriteProductReducer from '../store/favouriteProductSlice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistReducer,
@@ -17,12 +17,12 @@ const persistconfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['favouriteUsers'],
+  whitelist: ['favouriteProduct'],
 };
 
 const rootReducer = combineReducers({
   product: productReducer,
-  favouriteUsers: favouriteUserReducer,
+  favouriteProduct: favouriteProductReducer,
 });
 
 const persistedreducer = persistReducer(persistconfig, rootReducer);

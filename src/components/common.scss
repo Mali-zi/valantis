@@ -52,7 +52,7 @@
   }
 }
 
-.cardList {
+.card-list {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -64,31 +64,30 @@
 .card {
   width: 305px;
   height: 263px;
-  padding: 36px 0 20px 0;
+  padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0px 1px 4px 0px #33333326;
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
+
 }
 
 .heart-holder {
   position: relative;
   width: 30px;
-  height: 28px;
+  height: 30px;
   border-radius: 0.25rem;
   padding: 0.5rem;
-  background-color: $gray_light;
   align-self: flex-end;
-  margin-right: 1rem;
 }
 
 .favorite-btn {
   position: absolute;
-  width: 14px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

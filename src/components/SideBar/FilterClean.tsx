@@ -8,12 +8,8 @@ export default function FilterClean() {
   };
 
   return (
-    <div>
-      <button
-        type="button"
-        className="btn btn-primary ms-2 flex-shrink-1"
-        onClick={filterClean}
-      >
+    <div className="mt-16 mx-auto">
+      <button type="button" className="btn" onClick={filterClean}>
         Очистить фильтры
       </button>
     </div>

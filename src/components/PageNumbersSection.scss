@@ -3,19 +3,25 @@
   flex-direction: row;
   justify-content: flex-end;
   margin-bottom: 1rem;
+  gap: 0.5rem;
 }
 
 .ellipsis-item, .page-next, .page-prev {
   height: 38px;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 400;
+  padding: 0 1rem;
+  font-size: 2rem;
+  font-weight: 600;
   font-family: inherit;
   background-color: white;
   color: $violet;
-  border-radius: 0.5rem;
 }
 
 .page-next, .page-prev {
-  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.page-next:hover, .page-prev:hover  {
+    color: $hoverLink;
+    transform: scale(1.01, 1.01);
+    transition: all 0.3s ease;
 }

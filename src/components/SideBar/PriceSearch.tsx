@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../redux/app/hooks';
 import { hash } from '../../utils/const';
 import { fetchIds } from '../../redux/store/productSlice';
 
-export default function BrandSearch() {
+export default function PriceSearch() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -17,9 +17,9 @@ export default function BrandSearch() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const query = value.trim();
+    const query = Number(value.trim());
 
-    if (query) {
+    if (query && !isNaN(query)) {
       const options = {
         method: 'POST',
         headers: {
@@ -28,7 +28,7 @@ export default function BrandSearch() {
         },
         body: JSON.stringify({
           action: 'filter',
-          params: { brand: query },
+          params: { price: query },
         }),
       };
 
@@ -44,14 +44,14 @@ export default function BrandSearch() {
   return (
     <div className="mt-12 w-full">
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="brand-search" className="">
-          <h2 className="text-xl">Поиск по бренду</h2>
+        <label htmlFor="price-search" className="">
+          <h2 className="text-xl">Поиск по цене</h2>
           <div className="flex flex-row mt-2">
             <input
-              id="brand-search"
+              id="price-search"
               type="text"
               className="inp"
-              placeholder="Введите бренд"
+              placeholder="Введите цену"
               autoFocus
               autoComplete="off"
               value={value}

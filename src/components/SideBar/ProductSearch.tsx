@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/app/hooks';
+import { hash } from '../../utils/const';
+import { fetchIds } from '../../redux/store/productSlice';
 
 export default function ProductSearch() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const [value, setValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
   const [isValid, setIsValid] = useState(true);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -14,8 +18,21 @@ export default function ProductSearch() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const query = value.trim();
+
     if (query) {
-      setSearchQuery(query);
+      const options = {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-auth': hash,
+        },
+        body: JSON.stringify({
+          action: 'filter',
+          params: { product: query },
+        }),
+      };
+
+      dispatch(fetchIds(options));
       setIsValid(true);
       setValue('');
       navigate('/1');
@@ -25,28 +42,22 @@ export default function ProductSearch() {
   }
 
   return (
-    <div className="mb-3 mt-20">
+    <div className="mt-24 w-full">
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label
-          htmlFor="search-form"
-          className="form-label d-flex flex-column justify-content-start align-items-start fs-5"
-        >
+        <label htmlFor="product-search" className="">
           <h2 className="text-xl">Поиск по названию</h2>
-          <div className="container-fluid d-flex p-0 align-items-stretch mt-2">
+          <div className="flex flex-row mt-2">
             <input
-              id="search-form"
+              id="product-search"
               type="text"
               className="inp"
-              placeholder="Кольцо золотое"
+              placeholder="Введите название"
               autoFocus
+              autoComplete="off"
               value={value}
               onChange={(e) => handleChange(e)}
             />
-            <input
-              type="submit"
-              className="btn btn-primary ms-2 flex-shrink-1"
-              value="Поиск"
-            />
+            <input type="submit" className="btn ml-2" value="Поиск" />
           </div>
         </label>
       </form>
