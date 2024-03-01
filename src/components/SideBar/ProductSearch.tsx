@@ -42,7 +42,7 @@ export default function ProductSearch() {
   }
 
   return (
-    <div className="mt-24 w-full">
+    <div className="mt-24 w-full h-24">
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="product-search" className="">
           <h2 className="text-xl">Поиск по названию</h2>
@@ -64,7 +64,7 @@ export default function ProductSearch() {
       {isValid ? (
         <></>
       ) : (
-        <p className="text-red-500 text-sm">Невалидный запрос.</p>
+        <p className="text-red-500 text-sm mt-1">Невалидный запрос.</p>
       )}
     </div>
   );

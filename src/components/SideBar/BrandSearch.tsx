@@ -42,7 +42,7 @@ export default function BrandSearch() {
   }
 
   return (
-    <div className="mt-12 w-full">
+    <div className="mt-12 w-full h-24">
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="brand-search" className="">
           <h2 className="text-xl">Поиск по бренду</h2>
@@ -64,7 +64,7 @@ export default function BrandSearch() {
       {isValid ? (
         <></>
       ) : (
-        <p className="text-red-500 text-sm">Невалидный запрос.</p>
+        <p className="text-red-500 text-sm mt-1">Невалидный запрос.</p>
       )}
     </div>
   );

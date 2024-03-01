@@ -1,10 +1,14 @@
-$violet: #5819aa;
-$darkViolet: #56446e;
-$hoverLink: #8c0ed0;
-$active: #d9c0fa;
+$rose: rgb(76 5 25);
+$rose_light: rgb(159 18 57);
+
+// $violet: #5819aa;
+// $darkViolet: #56446e;
+$hoverLink: rgb(136 19 55);
+// $active: #d9c0fa;
 $black: #151317;
 $gray: #808185;
-$gray_light: #f8f8f8;
+$gray_light: rgb(241 245 249);
+$gray_dark: rgb(51 65 85);
 $red: #ff6161;
 
 * {
@@ -98,13 +102,12 @@ select:-webkit-autofill {
 }
 
 .btn {
-  height: 38px;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 400;
   font-family: inherit;
   cursor: pointer;
-  background-color: $darkViolet;
+  background-color: $rose;
   color: white;
   border-radius: 0.5rem;
 }
@@ -120,15 +123,24 @@ select:-webkit-autofill {
 }
 
 .btn-active {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: default;
   background-color: $hoverLink;
+  color: white;
+  border-radius: 0.5rem;
 }
 
 .inp {
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
-  color: $gray;
-  background-color: $gray_light;
+  color: $gray_dark;
+  background-color: white;
   width: 100%;
+  border-width: 1px;
+  border-color: $gray_dark;
 }
 
 .inp-invalid, .inp-invalid:focus {

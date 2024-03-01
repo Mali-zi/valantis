@@ -36,7 +36,7 @@ export default function PageNumbersSection() {
     items.push(
       <li
         key="1"
-        className={1 === curentPage ? 'btn btn-active' : 'btn'}
+        className={1 === curentPage ? 'btn-active' : 'btn'}
         onClick={() => {
           dispatch(setCurentPage(1));
           navigate('/1');
@@ -53,7 +53,7 @@ export default function PageNumbersSection() {
         <li
           key={page}
           data-page={page}
-          className={page === curentPage ? 'btn btn-active' : 'btn'}
+          className={page === curentPage ? 'btn-active' : 'btn'}
           onClick={() => {
             dispatch(setCurentPage(page));
             navigate(`/${page}`);
@@ -72,7 +72,7 @@ export default function PageNumbersSection() {
           <li
             key={page}
             data-page={page}
-            className={page === curentPage ? 'btn btn-active' : 'btn'}
+            className={page === curentPage ? 'btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
               navigate(`/${page}`);
@@ -95,7 +95,7 @@ export default function PageNumbersSection() {
           <li
             key={page}
             data-page={page}
-            className={page === curentPage ? 'btn btn-active' : 'btn'}
+            className={page === curentPage ? 'btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
               navigate(`/${page}`);
@@ -123,7 +123,7 @@ export default function PageNumbersSection() {
           <li
             key={page}
             data-page={page}
-            className={page === curentPage ? 'btn btn-active' : 'btn'}
+            className={page === curentPage ? 'btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
               navigate(`/${page}`);
@@ -151,7 +151,7 @@ export default function PageNumbersSection() {
           <li
             key={page}
             data-page={page}
-            className={page === curentPage ? 'btn btn-active' : 'btn'}
+            className={page === curentPage ? 'btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
               navigate(`/${page}`);
@@ -174,7 +174,7 @@ export default function PageNumbersSection() {
           <li
             key={page}
             data-page={page}
-            className={page === curentPage ? 'btn btn-active' : 'btn'}
+            className={page === curentPage ? 'btn-active' : 'btn'}
             onClick={() => {
               dispatch(setCurentPage(page));
               navigate(`/${page}`);
@@ -192,7 +192,7 @@ export default function PageNumbersSection() {
       <li
         key={total_pages}
         data-page={total_pages}
-        className={total_pages === curentPage ? 'btn btn-active' : 'btn'}
+        className={total_pages === curentPage ? 'btn-active' : 'btn'}
         onClick={() => {
           dispatch(setCurentPage(total_pages));
           navigate(`/${total_pages}`);
