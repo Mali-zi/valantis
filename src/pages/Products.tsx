@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import FavoriteSvg from '../assets/icons/favorite.svg';
 import FavoriteBorderSvg from '../assets/icons/favorite_border.svg';
-import PageNumbersSection from '../components/PageNumbersSection';
+import PageNumbersSection from '../components/PageNumbersSection/PageNumbersSection';
 import Loader from '../components/Loader';
 import { useEffect, useState } from 'react';
 import { fetchItems } from '../redux/store/productSlice';
@@ -10,12 +10,7 @@ import {
   setAddFavorite,
   setRemoveFavorite,
 } from '../redux/store/favouriteProductSlice';
-import { IItem } from '../utils/models';
-
-interface IOver {
-  over: boolean;
-  id: string;
-}
+import { IItem, IOver } from '../utils/models';
 
 const Products = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +20,6 @@ const Products = () => {
   );
 
   useEffect(() => {
-    console.log('curentIds', curentIds);
     const options = {
       method: 'POST',
       headers: {
@@ -41,6 +35,7 @@ const Products = () => {
     if (curentIds.length > 0) {
       dispatch(fetchItems(options));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curentIds]);
 
   const [isMouseOver, setMouseOver] = useState<IOver>({
@@ -57,8 +52,6 @@ const Products = () => {
     } else {
       dispatch(setAddFavorite(item));
     }
-
-    console.log('item', item);
   };
 
   const productList = items?.map((item) => {
@@ -124,7 +117,7 @@ const Products = () => {
       );
     } else {
       return (
-        <div>
+        <div className="w-1/2 mx-auto text-2xl">
           Извините, ничего не найдено. Проверьте правильность запроса или
           введите другой.
         </div>

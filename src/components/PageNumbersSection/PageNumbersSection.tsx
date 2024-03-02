@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../redux/app/hooks';
-import { setCurentPage } from '../redux/store/productSlice';
+import { useAppSelector, useAppDispatch } from '../../redux/app/hooks';
+import { setCurentPage } from '../../redux/store/productSlice';
 
 export default function PageNumbersSection() {
   const navigate = useNavigate();

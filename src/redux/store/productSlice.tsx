@@ -1,14 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { HTTP_TIMEOUT, MAX_RETRIES, limit, url } from '../../utils/const';
-import { IItem, IOptions, IProduct } from '../../utils/models';
+import { IError, IItem, IOptions, IProduct } from '../../utils/models';
 import { fetchPlusWithTimeout } from '../../utils/fetchPlusWithTimeout';
 import uniqueId from '../../utils/uniqueId';
 import uniqueItem from '../../utils/uniqueItem';
-
-interface IError {
-  errCode: string;
-  errMessage: string;
-}
 
 export const fetchIds = createAsyncThunk(
   'product/fetchIds',
@@ -72,6 +67,10 @@ export const productSlice = createSlice({
           uniqueIds.length > 0 ? Math.ceil(uniqueIds.length / limit) : 0;
         state.curentIds = uniqueIds.slice(0, limit);
         state.curentPage = 1;
+
+        if (state.ids.length === 0) {
+          state.items = [];
+        }
       })
       .addCase(fetchIds.pending, (state) => {
         state.status = 'pending';

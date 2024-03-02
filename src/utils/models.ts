@@ -27,3 +27,12 @@ export interface IOptions {
   };
   body: string;
 }
+
+export interface IError {
+  errCode: string;
+  errMessage: string;
+}
+export interface IOver {
+  over: boolean;
+  id: string;
+}
