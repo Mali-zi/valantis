@@ -61,45 +61,47 @@ const Products = () => {
 
     return (
       <li key={item.id} className="card">
-        <div className="inner-card">
-          <div className="flex flex-col gap-4 h-[180px] overflow-hidden">
+        <div className="flex flex-col gap-2 h-full justify-between">
+          <div className="overflow-hidden">
             <div className="text-3xl text-left font-semibold">
               {new Intl.NumberFormat('ru-RU').format(item.price)} ₽
             </div>
             {item.brand ? (
-              <div className="text-3xl text-left">{item.brand}</div>
+              <div className="text-2xl text-left mt-2">{item.brand}</div>
             ) : (
               <></>
             )}
-            <div className="text-2xl leading-8 text-left">{item.product}</div>
+            <div className="text-xl leading-8 text-left mt-2">
+              {item.product}
+            </div>
           </div>
 
-          <div className="heart-holder">
-            <button
-              type="button"
-              className="favorite-btn"
-              onClick={() => handleClick(item)}
-              onMouseOver={() =>
-                setMouseOver({
-                  over: true,
-                  id: item.id,
-                })
-              }
-              onMouseOut={() =>
-                setMouseOver({
-                  over: false,
-                  id: '',
-                })
-              }
-            >
-              {isfavourite ||
-              (isMouseOver.over && isMouseOver.id === item.id) ? (
-                <img src={FavoriteSvg} alt="Favorite SVG" />
-              ) : (
-                <img src={FavoriteBorderSvg} alt="Favorite Border SVG" />
-              )}
-            </button>
-          </div>
+          <span className="text-sm h-10 grow-0 shrink-0">id: {item.id}</span>
+        </div>
+        <div className="heart-holder">
+          <button
+            type="button"
+            className="favorite-btn"
+            onClick={() => handleClick(item)}
+            onMouseOver={() =>
+              setMouseOver({
+                over: true,
+                id: item.id,
+              })
+            }
+            onMouseOut={() =>
+              setMouseOver({
+                over: false,
+                id: '',
+              })
+            }
+          >
+            {isfavourite || (isMouseOver.over && isMouseOver.id === item.id) ? (
+              <img src={FavoriteSvg} alt="Favorite SVG" />
+            ) : (
+              <img src={FavoriteBorderSvg} alt="Favorite Border SVG" />
+            )}
+          </button>
         </div>
       </li>
     );
