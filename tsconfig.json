@@ -7,9 +7,10 @@
     "skipLibCheck": true,
     "types": ["vite/client"],
     "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
 
     /* Bundler mode */
-    "moduleResolution": "Node",
+    "moduleResolution": "Node10",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
