@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/app/hooks';
 import { hash } from '../../utils/const';
 import { fetchIds } from '../../redux/store/productSlice';
+import SearchIcon from '../../assets/icons/SearchIcon';
 
 export default function ProductSearch() {
   const navigate = useNavigate();
@@ -42,11 +43,11 @@ export default function ProductSearch() {
   }
 
   return (
-    <div className="mt-24 w-full h-24">
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="product-search" className="">
-          <h2 className="text-xl">Поиск по названию</h2>
-          <div className="flex flex-row mt-2">
+    <div className="md:mt-24 mt-2 w-full h-24">
+      <h2 className="text-xl">Поиск по названию</h2>
+      <form className="search-form" onSubmit={(e) => handleSubmit(e)}>
+        <label htmlFor="product-search">
+          <div className="flex flex-row p-1">
             <input
               id="product-search"
               type="text"
@@ -57,7 +58,9 @@ export default function ProductSearch() {
               value={value}
               onChange={(e) => handleChange(e)}
             />
-            <input type="submit" className="btn ml-2" value="Поиск" />
+            <button type="submit" title="search button" className="search-btn">
+              <SearchIcon />
+            </button>
           </div>
         </label>
       </form>

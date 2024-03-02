@@ -1,0 +1,225 @@
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  transition: all 0.8s ease-in;
+  padding: 1.5rem;
+  margin: 0 auto;
+
+  @media screen and (max-width: 1280px) {
+    padding: 1rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    padding: 0.8rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: pointer;
+  background-color: $rose;
+  color: white;
+  border-radius: 0.5rem;
+
+  @media screen and (max-width: 450px) {
+    padding: 0.5rem 0.65rem;
+  }
+}
+.btn:hover {
+  color: white;
+  background-color: $hoverLink;
+  transform: scale(1.01, 1.01);
+  transition: all 0.3s ease;
+}
+.btn:focus,
+.btn:focus-visible {
+  outline: none;
+}
+
+.btn-active {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: default;
+  background-color: $hoverLink;
+  color: white;
+  border-radius: 0.5rem;
+
+  @media screen and (max-width: 450px) {
+    padding: 0.5rem 0.65rem;
+  }
+}
+
+.inp {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  color: $gray;
+  border: none;
+}
+
+.header-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 2rem 5rem;
+  transition: all 0.8s ease-in;
+  text-align: center;
+  font-size: 4rem;
+  color: $gray_light;
+  background-color: $rose;
+
+  @media screen and (max-width: 1280px) {
+    padding: 2rem 3rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 1.5rem 2rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 1rem;
+  }
+}
+
+.logo {
+  height: 15rem;
+
+  @media screen and (max-width: 1280px) {
+    height: 12rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    height: 9rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    height: 5rem;
+  }
+}
+
+.product-container {
+  width: 75%;
+  height: 100%;
+  min-height: 100vh;
+  flex-grow: 1;
+  padding: 0 1rem;
+  background-color: $gray_light;
+
+  @media screen and (max-width: 1280px) {
+    padding: 0 1rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    padding: 0 0.8rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 0 0.5rem;
+  }
+}
+
+.card-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card {
+  width: 305px;
+  height: 263px;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 1px 4px 0px #33333326;
+  background-color: #fff;
+}
+
+.inner-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.heart-holder {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 0.25rem;
+  align-self: flex-end;
+}
+
+.favorite-btn {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  background-color: transparent;
+}
+
+.search-btn {
+  width: 30px;
+  height: 30px;
+  color: $gray;
+
+  cursor: pointer;
+
+  :hover {
+    color: $hoverLink;
+    transform: scale(1.05, 1.05);
+    transition: all 0.3s ease;
+  }
+}
+
+// .btn:hover {
+//   color: white;
+//   background-color: $hoverLink;
+//   transform: scale(1.01, 1.01);
+//   transition: all 0.3s ease;
+// }
+// .btn:focus,
+// .btn:focus-visible {
+//   outline: none;
+// }
+
+.search-form {
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-color: $gray;
+  background-color: #fff;
+}

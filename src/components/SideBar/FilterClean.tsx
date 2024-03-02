@@ -26,7 +26,7 @@ export default function FilterClean() {
   };
 
   return (
-    <div className="mt-16 mx-auto">
+    <div className="md:mt-8 mt-2 mx-auto">
       <button type="button" className="btn" onClick={filterClean}>
         Сбросить фильтр
       </button>
