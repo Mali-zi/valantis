@@ -2,7 +2,7 @@ import { md5 } from 'js-md5';
 
 export const password = 'Valantis';
 export const limit = 50;
-export const url = '/api';
+export const url = 'http://api.valantis.store:40000/';
 export const HTTP_TIMEOUT = 10000;
 export const MAX_RETRIES = 5;
 export const timeStamp = new Date()
