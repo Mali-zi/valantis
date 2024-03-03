@@ -119,7 +119,7 @@ const Products = () => {
       );
     } else {
       return (
-        <div className="w-1/2 mx-auto text-2xl">
+        <div className="w-full md:w-1/2 mx-auto text-2xl text-center mt-8 md:mt-24">
           Извините, ничего не найдено. Проверьте правильность запроса или
           введите другой.
         </div>
