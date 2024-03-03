@@ -28,6 +28,14 @@ export default function SearchComponent({
     if (e.target.value.trim() === '') {
       setIsValid(true);
     }
+
+    if (name === 'price' && isNaN(Number(e.target.value))) {
+      setIsValid(false);
+    }
+
+    if (name === 'price' && !isNaN(Number(e.target.value))) {
+      setIsValid(true);
+    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
