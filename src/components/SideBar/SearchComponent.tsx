@@ -5,7 +5,17 @@ import { hash } from '../../utils/const';
 import { fetchIds } from '../../redux/store/productSlice';
 import SearchIcon from '../../assets/icons/SearchIcon';
 
-export default function BrandSearch() {
+interface ISearchComponentfield {
+  name: string;
+  title: string;
+  text: string;
+}
+
+export default function SearchComponent({
+  name,
+  title,
+  text,
+}: ISearchComponentfield) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -14,45 +24,68 @@ export default function BrandSearch() {
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
+
+    if (e.target.value.trim() === '') {
+      setIsValid(true);
+    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const query = value.trim();
+    const priceQuery = Number(query);
+    const options = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-auth': hash,
+      },
+    };
+    let body = '';
 
+    if (!query) {
+      setIsValid(false);
+      return;
+    }
+    if (query && name === 'price' && isNaN(priceQuery)) {
+      console.log('isNaN(priceQuery)', isNaN(priceQuery));
+      setIsValid(false);
+      return;
+    }
     if (query) {
-      const options = {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'x-auth': hash,
-        },
-        body: JSON.stringify({
-          action: 'filter',
-          params: { brand: query },
-        }),
-      };
+      if (name === 'price' && !isNaN(priceQuery)) {
+        console.log('!isNaN(priceQuery)', !isNaN(priceQuery));
 
-      dispatch(fetchIds(options));
+        body = JSON.stringify({
+          action: 'filter',
+          params: { price: priceQuery },
+        });
+      }
+      if (name === 'product' || name === 'brand') {
+        body = JSON.stringify({
+          action: 'filter',
+          params: { [name]: query },
+        });
+      }
+
+      dispatch(fetchIds({ ...options, body: body }));
       setIsValid(true);
       setValue('');
       navigate('/1');
-    } else {
-      setIsValid(false);
     }
   }
 
   return (
-    <div className="w-full h-24">
-      <h2 className="text-xl">Поиск по бренду</h2>
+    <>
+      <h2 className="text-xl">Поиск по {title}</h2>
       <form className="search-form" onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="brand-search">
+        <label htmlFor={`${name}-search`}>
           <div className="flex flex-row p-1">
             <input
-              id="brand-search"
+              id={`${name}-search`}
               type="text"
               className="inp"
-              placeholder="Введите бренд"
+              placeholder={`Введите ${text}`}
               autoFocus
               autoComplete="off"
               value={value}
@@ -69,6 +102,6 @@ export default function BrandSearch() {
       ) : (
         <p className="text-red-500 text-sm mt-1">Невалидный запрос.</p>
       )}
-    </div>
+    </>
   );
 }
