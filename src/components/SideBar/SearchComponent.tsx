@@ -48,14 +48,11 @@ export default function SearchComponent({
       return;
     }
     if (query && name === 'price' && isNaN(priceQuery)) {
-      console.log('isNaN(priceQuery)', isNaN(priceQuery));
       setIsValid(false);
       return;
     }
     if (query) {
       if (name === 'price' && !isNaN(priceQuery)) {
-        console.log('!isNaN(priceQuery)', !isNaN(priceQuery));
-
         body = JSON.stringify({
           action: 'filter',
           params: { price: priceQuery },
