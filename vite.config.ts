@@ -4,7 +4,7 @@ import postcss from './postcss.config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/valantis/',
+  base: 'https://mali-zi.github.io/valantis/',
   plugins: [react()],
   css: {
     postcss,
