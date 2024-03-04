@@ -1,7 +1,8 @@
-# Antipoff app
+# Valantis app
 
 - Стек: React.JS + TypeScript + Vite + Redux Toolkit + TailwindCSS + Sass
 - Code Quality Tools: ESLint + Prettier
+
 - [Deploy](https://mali-zi-valantis.netlify.app)
 - ![Screenshot](https://github.com/Mali-zi/valantis/blob/master/public/screenshot.JPG)
 
